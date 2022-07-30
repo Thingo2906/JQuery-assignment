@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App!</title>
+    <style>
+        div{
+           margin-top: 1em;
+        }
+        form {
+           font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+           font-size: 16px;
+           color: brown;
+        }
+        #submit-button{
+           margin-left: 1em;
+           font-weight: bold;
+        }
+        .movie-details {
+           font-family: Verdana, Geneva, Tahoma, sans-serif;
+           font-size: 18px;
+        }
+        .remove-button{
+           margin-left: 1em;
+           font-weight: bold;
+           padding: 0em .75em;
+        }
+
+
+     
+    </style>
+</head>
+<body>
+    <h1>The Movie App!</h1>
+    <form class="movie-form">
+        <label>MOVIE TITLE
+            <input id = "title-input" type = "text" min = "2" max = "30" required />
+
+        </label>
+        <label>RATING
+            <input id = "rating-input" type = "number" min = "0" max="10" placeholder="0-10" required />
+        </label>
+        <button id = "submit-button" type = "submit" value = "Submit" >submit</button>
+    </form>
+    <div class = "movies">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        
+       
+        $('#submit-button').on("click", function(evt){
+            evt.preventDefault();
+           
+            
+            let _movie = $('#title-input').val();
+            let _rating = $('#rating-input').val();
+            if((!_movie) || (!_rating)){
+                alert('Please fill out the form!');
+            }
+            else{
+                _movie = _movie + `  ${_rating}`;
+                let movieDiv = $('<div>').html(_movie).addClass('movie-details');
+                $('<button>').text('X').addClass('remove-button').appendTo(movieDiv);
+                $('.movies').append(movieDiv);
+            }
+            $('input').val('');
+            });
+
+        $('.movies').on("click",'.remove-button', function(){
+            $(this).parent().remove();
+
+        });
+    </script>
+</body>
+</html>
